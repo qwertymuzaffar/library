@@ -54,6 +54,16 @@ public class LibraryService {
         books.removeIf(book -> book.getId().equals(id));
     }
 
+    // Search by title or author
+    public List<Book> searchByTitleOrAuthor(String query) {
+        return books.stream()
+                .filter(book ->
+                        (book.getTitle() != null && book.getTitle().toLowerCase().contains(query.toLowerCase())) ||
+                                (book.getAuthor() != null && book.getAuthor().toLowerCase().contains(query.toLowerCase()))
+                )
+                .toList();
+    }
+
     // ==================== Member Methods ====================
 
     // Get all members

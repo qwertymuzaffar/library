@@ -47,6 +47,15 @@ public class LibraryController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
+    // search book by title or author
+    @GetMapping("/books/search/{query}")
+    public ResponseEntity<List<Book>> searchBooks(@PathVariable String query) {
+        List<Book> books = libraryService.searchByTitleOrAuthor(query);
+        logger.info("The books list returned: " + books + " by query: " + query );
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
     // Add a new book
     @PostMapping("/books")
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
